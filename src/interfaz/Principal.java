@@ -169,7 +169,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void txtNumeroUnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroUnoKeyTyped
         char c = evt.getKeyChar();
-        if (Character.isAlphabetic(c) || Character.isSpaceChar(c)) {
+        if (!Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
        }
@@ -177,11 +177,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroUnoKeyTyped
 
     private void txtNumeroDosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDosKeyTyped
-        char c = evt.getKeyChar();
-        if (Character.isAlphabetic(c) || Character.isSpaceChar(c)) {
+         char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
             getToolkit().beep();
             evt.consume();
-        }
+       }
     }//GEN-LAST:event_txtNumeroDosKeyTyped
 
     /**

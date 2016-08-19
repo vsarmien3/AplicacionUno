@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package interfaz;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -65,7 +66,19 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel4.setText("Resultado");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 60, 20));
+
+        txtNumeroUno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroUnoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNumeroUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 120, -1));
+
+        txtNumeroDos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroDosKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNumeroDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 150, -1));
 
         txtResultado.setEditable(false);
@@ -102,48 +115,74 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
-      String n1, n2, res;
-      double num1, num2, operacion=0;
-      int opc;
-      
-      num1 = Double.parseDouble(txtNumeroUno.getText());
-      num2 = Double.parseDouble(txtNumeroDos.getText());
-      opc = cmbOperacion.getSelectedIndex();
-      
-      switch(opc){
-          case 0:
-              operacion = num1 + num2; 
-              
-          break;
-          case 1:
-              operacion = num1 - num2;
-          break;
-          case 2:
-              operacion = num1 * num2;
-          break;
-          case 3:
-              operacion = num1 / num2;
-          break;
-              
-      }
-      
-          
-      res = String.valueOf(operacion);
-      txtResultado.setText(res);
-      
-        
-        
+        String n1, n2, res;
+        double num1, num2, operacion = 0;
+        int opc;
+        txtResultado.setText("");
+        if (txtNumeroUno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor el número uno", "Error", JOptionPane.ERROR_MESSAGE);
+            txtNumeroUno.requestFocusInWindow();
+        } else if (txtNumeroDos.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite por favor el número dos", "Error", JOptionPane.ERROR_MESSAGE);
+            txtNumeroDos.requestFocusInWindow();
+        } else {
+            num1 = Double.parseDouble(txtNumeroUno.getText());
+            num2 = Double.parseDouble(txtNumeroDos.getText());
+            opc = cmbOperacion.getSelectedIndex();
+
+            if (opc == 3 && num2 == 0) {
+                JOptionPane.showMessageDialog(this, "No se permite división por cero", "Error", JOptionPane.ERROR_MESSAGE);
+                txtNumeroDos.requestFocusInWindow();
+                txtNumeroDos.selectAll();
+            } else {
+
+                switch (opc) {
+                    case 0:
+                        operacion = num1 + num2;
+                        break;
+                    case 1:
+                        operacion = num1 - num2;
+                        break;
+                    case 2:
+                        operacion = num1 * num2;
+                        break;
+                    case 3:
+                        operacion = num1 / num2;
+                        break;
+                }
+                res = String.valueOf(operacion);
+                txtResultado.setText(res);
+            }
+        }
+
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
-       txtNumeroUno.setText("");
-       txtNumeroDos.setText("");
-       txtResultado.setText("");
-       
-       txtNumeroUno.requestFocusInWindow();
-       cmbOperacion.setSelectedIndex(0);
-        
+        txtNumeroUno.setText("");
+        txtNumeroDos.setText("");
+        txtResultado.setText("");
+
+        txtNumeroUno.requestFocusInWindow();
+        cmbOperacion.setSelectedIndex(0);
+
     }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtNumeroUnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroUnoKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isAlphabetic(c) || Character.isSpaceChar(c)) {
+            getToolkit().beep();
+            evt.consume();
+       }
+
+    }//GEN-LAST:event_txtNumeroUnoKeyTyped
+
+    private void txtNumeroDosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDosKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isAlphabetic(c) || Character.isSpaceChar(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumeroDosKeyTyped
 
     /**
      * @param args the command line arguments

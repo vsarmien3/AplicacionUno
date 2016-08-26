@@ -66,19 +66,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel4.setText("Resultado");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 60, 20));
-
-        txtNumeroUno.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumeroUnoKeyTyped(evt);
-            }
-        });
         jPanel1.add(txtNumeroUno, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 120, -1));
-
-        txtNumeroDos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumeroDosKeyTyped(evt);
-            }
-        });
         jPanel1.add(txtNumeroDos, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 150, -1));
 
         txtResultado.setEditable(false);
@@ -117,15 +105,38 @@ public class Principal extends javax.swing.JFrame {
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
         String n1, n2, res;
         double num1, num2, operacion = 0;
-        int opc;
+        int opc, sw=1;
         txtResultado.setText("");
         if (txtNumeroUno.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite por favor el número uno", "Error", JOptionPane.ERROR_MESSAGE);
             txtNumeroUno.requestFocusInWindow();
+            sw=0;
         } else if (txtNumeroDos.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Digite por favor el número dos", "Error", JOptionPane.ERROR_MESSAGE);
             txtNumeroDos.requestFocusInWindow();
-        } else {
+            sw=0;
+        } else{
+        
+        try{
+            num1 = Double.parseDouble(txtNumeroUno.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "El primer número debe ser un número correcto","Error", JOptionPane.ERROR_MESSAGE);
+                txtNumeroUno.requestFocusInWindow();
+                txtNumeroUno.selectAll();
+                sw = 0;
+            }
+        try{
+            num2 = Double.parseDouble(txtNumeroDos.getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "El Segundo número debe ser un número correcto","Error",JOptionPane.ERROR_MESSAGE);
+                txtNumeroDos.requestFocusInWindow();
+                txtNumeroDos.selectAll();
+                sw =0;
+            }
+        }
+        
+        if(sw == 1) {
+            
             num1 = Double.parseDouble(txtNumeroUno.getText());
             num2 = Double.parseDouble(txtNumeroDos.getText());
             opc = cmbOperacion.getSelectedIndex();
@@ -153,6 +164,7 @@ public class Principal extends javax.swing.JFrame {
                 res = String.valueOf(operacion);
                 txtResultado.setText(res);
             }
+            
         }
 
     }//GEN-LAST:event_cmdCalcularActionPerformed
@@ -166,23 +178,6 @@ public class Principal extends javax.swing.JFrame {
         cmbOperacion.setSelectedIndex(0);
 
     }//GEN-LAST:event_cmdBorrarActionPerformed
-
-    private void txtNumeroUnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroUnoKeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c)) {
-            getToolkit().beep();
-            evt.consume();
-       }
-
-    }//GEN-LAST:event_txtNumeroUnoKeyTyped
-
-    private void txtNumeroDosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDosKeyTyped
-         char c = evt.getKeyChar();
-        if (!Character.isDigit(c)) {
-            getToolkit().beep();
-            evt.consume();
-       }
-    }//GEN-LAST:event_txtNumeroDosKeyTyped
 
     /**
      * @param args the command line arguments
